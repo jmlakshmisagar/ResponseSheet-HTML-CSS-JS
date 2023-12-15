@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Sheet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h4>Subscription Form
+    </h4>
+    <form name="submit-to-google-sheet">
+        <input name="Email" type="email" placeholder="Email" required>
+        <input name="Name" type="text" placeholder="Name" required>
+        <input name="Query" type="text" placeholder="Query" id="textArea" required>
+
+        <button type="submit">Send</button>
+        <div class="popup">
+            <div class="img"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="alert">
+                <h1>Thank You</h1>
+                <button type="button" onclick="closepopup()">Successfull Submitted</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwiRwljoANIj8qlqYX5P8rwNU8EuVG82pPvnrX7e-SUJ-tcOZ70xa5fC3ebZb_iRh_B/exec'
+        const form = document.forms['submit-to-google-sheet']
+
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    popup.classList.add("show");
+                })
+                .catch(error => console.error('Error!', error.message))
+        })
+
+    </script>
+</body>
+
+</html>
